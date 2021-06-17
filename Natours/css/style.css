@@ -6,3 +6,222 @@ Medium green: #55c57a
 Dark green: #28b485
 
 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+        /* Makes it so the borders and the paddings are no longer
+    added to the total width and height. */
+}
+
+body {
+    /* Setting it here as a parent element makes all children inherit it as well*/
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #777;
+    padding: 30px;
+    /* Setting a padding on the body sets it around the whole page */
+}
+
+.header {
+    height: 95vh;
+    background-image: linear-gradient(to right,
+            rgba(126, 213, 111, 0.8),
+            rgb(40, 180, 133, 0.8)),
+        url(/img/hero.jpg);
+    background-size: cover;
+    background-position: top;
+
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    /* Epsilon direction: 0 0, no change
+        vh so it also changes */
+    position: relative;
+}
+
+.logo-box {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    /* We start counting from my parent element relative
+    which is our .header*/
+}
+
+.logo {
+    height: 35px;
+
+}
+
+.logo:hover {
+    animation-name: spinLogo;
+    animation-duration: 1s;
+    /* animation-iteration-count: infinite; */
+}
+
+.text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Lets it be in the middle horizontal and vertically */
+    text-align: center;
+}
+
+.heading-primary {
+    color: #fff;
+    text-transform: uppercase;
+
+    backface-visibility: hidden;
+    margin-bottom: 60px;
+}
+
+.heading-primary-main {
+    display: block;
+    font-size: 60px;
+    font-weight: 400;
+    letter-spacing: 35px;
+
+    animation-name: moveInLeft;
+    animation-duration: 1.5s;
+    /* animation-timing-function: ease, ease-in etc.; slower in the beginning or at the end*/
+    /* animation-iteration-count: 3; */
+    /* animation-delay: 3s; */
+}
+
+.heading-primary-sub {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 17.4px;
+    animation-name: moveInRight;
+    animation-duration: 1.5s;
+}
+
+@keyframes moveInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+
+    /*We can add in more steps; like 50%, 80% */
+    80% {
+        transform: translateX(3px);
+        /* Gives it that little bounce */
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+
+    /* 60% {
+        transform: rotate(180deg);
+    } */
+
+    /*We can add in more steps; like 50%, 80% */
+    80% {
+        transform: translateX(-3px);
+        /* Gives it that little bounce */
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes spinLogo {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        transform: rotate(360deg);
+    }
+
+    100% {
+        opacity: 100%;
+    }
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.btn:link,
+.btn:visited {
+    /* We want both the link and visited state to look the same */
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 40px;
+    display: inline-block;
+    /* in-line block because it was inline and reached outside it's height */
+    border-radius: 100px;
+    /* anything past 100px is nothing significant */
+    transition: all .2s;
+    /* Has to be on the initial state quick version of animation */
+    position: relative;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    /* Make the shadow a low opacity */
+}
+
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+
+}
+
+.btn-white {
+    background-color: #fff;
+    color: #777;
+}
+
+.btn::after {
+    /* Hidden psuedo element, treat as a child, so you must declare the content, display, width/height*/
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+}
+
+.btn-white::after {
+    background-color: #fff;
+}
+
+.btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+    /* opacity 0 for tricking a fade up */
+}
+
+.btn-animated {
+    animation: moveInBottom .5s ease-out .5s;
+    animation-fill-mode: backwards;
+}
